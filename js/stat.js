@@ -15,11 +15,6 @@ var BAR_WIDTH = 40;
 var BAR_HEIGHT = 150;
 var BAR_GAP = 50;
 
-var titleX = CLOUD_X + GAP;
-var titleY = CLOUD_Y + GAP;
-var firstPlayersNameGapX = CLOUD_X + 2 * GAP;
-var firstPlayersNameGapY = CLOUD_HEIGHT - GAP;
-
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
@@ -58,13 +53,17 @@ var getColor = function (h, l) {
 
 
 window.renderStatistics = function (ctx, players, times) {
+  var titleX = CLOUD_X + GAP;
+  var titleY = CLOUD_Y + GAP;
+  var firstPlayersNameGapX = CLOUD_X + 2 * GAP;
+  var firstPlayersNameGapY = CLOUD_HEIGHT - GAP;
+  var maxTime = getMaxElement(times);
+
   renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   renderText(ctx, FONT_BASE_COLOR, FONT, FONT_BASELINE, 'Ура, вы победили!', titleX, titleY);
-  renderText(ctx, FONT_BASE_COLOR, FONT, FONT_BASELINE, 'Список результатов:', titleX, titleY + FONT_GAP);
-
-  var maxTime = getMaxElement(times);
+  renderText(ctx, FONT_BASE_COLOR, FONT, FONT_BASELINE, 'Список результатов:', titleX, titleY + FONT_GAP);  
 
   for (var i = 0; i < players.length; i++) {
 
