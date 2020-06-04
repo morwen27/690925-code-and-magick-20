@@ -4,8 +4,8 @@ var QUANTITY_PERSONS = 4;
 
 var NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-var COAT_COLOR = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
+var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 var userDialog = document.querySelector('.setup');
 
@@ -49,7 +49,7 @@ var generateWizards = function (data) {
   }
 };
 
-var data = generatePersons(QUANTITY_PERSONS, NAMES, SURNAMES, COAT_COLOR, EYES_COLOR);
+var data = generatePersons(QUANTITY_PERSONS, NAMES, SURNAMES, COAT_COLORS, EYES_COLORS);
 generateWizards(data);
 
 similarListElement.appendChild(fragment);
