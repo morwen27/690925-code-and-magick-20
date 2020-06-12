@@ -76,7 +76,7 @@ var onEcsPressForClose = function (evt) {
 
 var openSetupModal = function () {
   userDialog.classList.remove('hidden');
-  //setupSimilar.classList.remove('hidden');
+  setupSimilar.classList.remove('hidden');
 
   closeSetup.addEventListener('click', function () {
     closeSetupModal();
