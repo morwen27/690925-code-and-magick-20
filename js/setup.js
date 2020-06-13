@@ -8,13 +8,21 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
-
-
 var setupSimilar = document.querySelector('.setup-similar');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 var similarListElement = document.querySelector('.setup-similar-list');
 
 var fragment = document.createDocumentFragment();
+
+var userDialog = document.querySelector('.setup');
+var setupUserName = userDialog.querySelector('.setup-user-name');
+
+var openSetup = document.querySelector('.setup-open');
+var closeSetup = userDialog.querySelector('.setup-close');
+
+var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
+var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
+var wizardFireball = document.querySelector('.setup-fireball-wrap');
 
 
 var getRandomArrElement = function (arr) {
@@ -51,20 +59,9 @@ var generateWizards = function (data) {
 };
 
 var data = generatePersons(QUANTITY_PERSONS, NAMES, SURNAMES, COAT_COLORS, EYES_COLORS);
+
 generateWizards(data);
-
 similarListElement.appendChild(fragment);
-
-
-var userDialog = document.querySelector('.setup');
-var setupUserName = userDialog.querySelector('.setup-user-name');
-
-var openSetup = document.querySelector('.setup-open');
-var closeSetup = userDialog.querySelector('.setup-close');
-
-var wizardCoat = document.querySelector('.setup-wizard .wizard-coat');
-var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
-var wizardFireball = document.querySelector('.setup-fireball-wrap');
 
 
 var onEcsPressForClose = function (evt) {
@@ -78,16 +75,6 @@ var openSetupModal = function () {
   userDialog.classList.remove('hidden');
   setupSimilar.classList.remove('hidden');
 
-  closeSetup.addEventListener('click', function () {
-    closeSetupModal();
-  });
-
-  closeSetup.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      closeSetupModal();
-    }
-  });
-
   document.addEventListener('keydown', onEcsPressForClose);
 
   wizardCoat.addEventListener('click', setCoatColor);
@@ -97,16 +84,6 @@ var openSetupModal = function () {
 
 var closeSetupModal = function () {
   userDialog.classList.add('hidden');
-
-  closeSetup.removeEventListener('click', function () {
-    closeSetupModal();
-  });
-
-  closeSetup.removeEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      closeSetupModal();
-    }
-  });
 
   document.removeEventListener('keydown', onEcsPressForClose);
 
@@ -146,5 +123,15 @@ openSetup.addEventListener('click', function () {
 openSetup.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     openSetupModal();
+  }
+});
+
+closeSetup.addEventListener('click', function () {
+  closeSetupModal();
+});
+
+closeSetup.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closeSetupModal();
   }
 });
