@@ -63,7 +63,7 @@ window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
   renderText(ctx, FONT_BASE_COLOR, FONT, FONT_BASELINE, 'Ура, вы победили!', titleX, titleY);
-  renderText(ctx, FONT_BASE_COLOR, FONT, FONT_BASELINE, 'Список результатов:', titleX, titleY + FONT_GAP);  
+  renderText(ctx, FONT_BASE_COLOR, FONT, FONT_BASELINE, 'Список результатов:', titleX, titleY + FONT_GAP);
 
   for (var i = 0; i < players.length; i++) {
 
