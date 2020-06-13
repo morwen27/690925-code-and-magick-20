@@ -71,9 +71,18 @@ var onEcsPressForClose = function (evt) {
   }
 };
 
+var onEnterForClose = function (evt) {
+  if (evt.key === 'Enter') {
+    closeSetupModal();
+  }
+};
+
 var openSetupModal = function () {
   userDialog.classList.remove('hidden');
   setupSimilar.classList.remove('hidden');
+
+  closeSetup.addEventListener('click', closeSetupModal);
+  closeSetup.addEventListener('keydown', onEnterForClose);
 
   document.addEventListener('keydown', onEcsPressForClose);
 
@@ -86,6 +95,9 @@ var closeSetupModal = function () {
   userDialog.classList.add('hidden');
 
   document.removeEventListener('keydown', onEcsPressForClose);
+
+  closeSetup.removeEventListener('click', closeSetupModal);
+  closeSetup.removeEventListener('keydown', onEnterForClose);
 
   wizardCoat.removeEventListener('click', setCoatColor);
   wizardEyes.removeEventListener('click', setEyesColor);
@@ -123,15 +135,5 @@ openSetup.addEventListener('click', function () {
 openSetup.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     openSetupModal();
-  }
-});
-
-closeSetup.addEventListener('click', function () {
-  closeSetupModal();
-});
-
-closeSetup.addEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    closeSetupModal();
   }
 });
