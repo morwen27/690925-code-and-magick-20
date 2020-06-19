@@ -7,6 +7,7 @@
   var userDialog = document.querySelector('.setup');
   var setupUserName = userDialog.querySelector('.setup-user-name');
   var setupSimilar = document.querySelector('.setup-similar');
+  var form = document.querySelector('.setup-wizard-form');
 
   var openSetup = document.querySelector('.setup-open');
   var closeSetup = userDialog.querySelector('.setup-close');
@@ -82,6 +83,14 @@
     fireballColorInput.value = fireballColor;
   };
 
+  var submitWizardHandler = function (evt) {
+    window.backend.save(new FormData(form), function () {
+      userDialog.classList.add('hidden');
+    }, function () {});
+
+    evt.preventDefault();
+  };
+
   openSetup.addEventListener('click', function () {
     openSetupModal();
   });
@@ -91,4 +100,6 @@
       openSetupModal();
     }
   });
+
+  form.addEventListener('submit', submitWizardHandler);
 })();
