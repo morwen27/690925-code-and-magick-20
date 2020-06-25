@@ -3,19 +3,77 @@
 (function () {
   var QUANTITY_WIZARDS = 4;
 
-  var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
-  var EYES_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-  var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
-
   var userDialog = document.querySelector('.setup');
 
   var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
   var similarListElement = document.querySelector('.setup-similar-list');
 
-  var getRandomArrElement = function (arr) {
-    var randomElement = arr[Math.floor(Math.random() * arr.length)];
+  var coatColor = 'rgb(101, 137, 164)';
+  var eyesColor = 'black';
 
-    return randomElement;
+  var wizards = [];
+
+  var render = function (data) {
+
+    similarListElement.innerHTML = '';
+
+    var fragment = document.createDocumentFragment();
+
+    for (var i = 0; i < QUANTITY_WIZARDS; i++) {
+      data[i] = window.wizard.getRandomArrElement(data);
+      fragment.appendChild(generateWizards(data[i]));
+    }
+    similarListElement.appendChild(fragment);
+    userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  };
+
+  var getRank = function (wizard) {
+    var rank = 0;
+
+    if (wizard.colorCoat === coatColor) {
+      rank += 2;
+    }
+    if (wizard.colorEyes === eyesColor) {
+      rank += 1;
+    }
+
+    return rank;
+  };
+
+  var nameComparator = function (left, right) {
+    if (left > right) {
+      return 1;
+    } else if (left < right) {
+      return -1;
+    } else {
+      return 0;
+    }
+  };
+
+  var updateWizards = function () {
+    var sortedWizard = wizards
+      .slice()
+      .sort(function (left, right) {
+        var rankDiff = getRank(right) - getRank(left);
+        if (rankDiff === 0) {
+          rankDiff = nameComparator(left.name, right.name);
+        }
+        return rankDiff;
+      });
+
+    render(sortedWizard);
+  };
+
+  window.wizard.wizard.onEyesChange = function (color) {
+    eyesColor = color;
+    // window.debounce.debounce(updateWizards);
+    updateWizards();
+  };
+
+  window.wizard.wizard.onCoatChange = function (color) {
+    coatColor = color;
+    // window.debounce.debounce(updateWizards);
+    updateWizards();
   };
 
   var generateWizards = function (wizard) {
@@ -28,15 +86,9 @@
     return wizardElement;
   };
 
-  var loadSuccessHandler = function (wizards) {
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < QUANTITY_WIZARDS; i++) {
-      wizards[i] = getRandomArrElement(wizards);
-      fragment.appendChild(generateWizards(wizards[i]));
-    }
-    similarListElement.appendChild(fragment);
-    userDialog.querySelector('.setup-similar').classList.remove('hidden');
+  var loadSuccessHandler = function (data) {
+    wizards = data;
+    updateWizards();
   };
 
   var loadErrorHandler = function (errorMessage) {
@@ -52,12 +104,5 @@
   };
 
   window.backend.load(loadSuccessHandler, loadErrorHandler);
-
-  window.setupSimilarPerson = {
-    COAT_COLORS: COAT_COLORS,
-    EYES_COLORS: EYES_COLORS,
-    FIREBALL_COLORS: FIREBALL_COLORS,
-    getRandomArrElement: getRandomArrElement,
-  };
 
 })();

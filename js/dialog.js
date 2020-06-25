@@ -38,9 +38,9 @@
 
     document.addEventListener('keydown', onEcsPressForClose);
 
-    wizardCoat.addEventListener('click', setCoatColor);
-    wizardEyes.addEventListener('click', setEyesColor);
-    wizardFireball.addEventListener('click', setFireballColor);
+    wizardCoat.addEventListener('click', window.wizard.setCoatColor);
+    wizardEyes.addEventListener('click', window.wizard.setEyesColor);
+    wizardFireball.addEventListener('click', window.wizard.setFireballColor);
 
     userDialog.style.left = DEFAULT_USER_DIALOG_X;
     userDialog.style.top = DEFAULT_USER_DIALOG_Y;
@@ -54,33 +54,9 @@
     closeSetup.removeEventListener('click', closeSetupModal);
     closeSetup.removeEventListener('keydown', onEnterForClose);
 
-    wizardCoat.removeEventListener('click', setCoatColor);
-    wizardEyes.removeEventListener('click', setEyesColor);
-    wizardFireball.removeEventListener('click', setFireballColor);
-  };
-
-  var setCoatColor = function () {
-    var coatColorInput = document.querySelector('.setup-wizard-appearance input[name="coat-color"]');
-    var coatColor = window.setupSimilarPerson.getRandomArrElement(window.setupSimilarPerson.COAT_COLORS);
-
-    wizardCoat.style.fill = coatColor;
-    coatColorInput.value = coatColor;
-  };
-
-  var setEyesColor = function () {
-    var eyesColorInput = document.querySelector('.setup-wizard-appearance input[name="eyes-color"]');
-    var eyesColor = window.setupSimilarPerson.getRandomArrElement(window.setupSimilarPerson.EYES_COLORS);
-
-    wizardEyes.style.fill = eyesColor;
-    eyesColorInput.value = eyesColor;
-  };
-
-  var setFireballColor = function () {
-    var fireballColorInput = wizardFireball.querySelector('input[name="fireball-color"]');
-    var fireballColor = window.setupSimilarPerson.getRandomArrElement(window.setupSimilarPerson.FIREBALL_COLORS);
-
-    wizardFireball.style.background = fireballColor;
-    fireballColorInput.value = fireballColor;
+    wizardCoat.removeEventListener('click', window.wizard.setCoatColor);
+    wizardEyes.removeEventListener('click', window.wizard.setEyesColor);
+    wizardFireball.removeEventListener('click', window.wizard.setFireballColor);
   };
 
   var submitWizardHandler = function (evt) {
