@@ -59,17 +59,15 @@
     }));
   };
 
-  window.wizard.wizardsColors.onEyesChange = function (color) {
+  var onEyesChange = window.debounce.debounceEffect(function (color) {
     eyesColor = color;
-    window.debounce.debounceEffect(updateWizards);
     updateWizards();
-  };
+  });
 
-  window.wizard.wizardsColors.onCoatChange = function (color) {
+  var onCoatChange = window.debounce.debounceEffect(function (color) {
     coatColor = color;
-    window.debounce.debounceEffect(updateWizards);
     updateWizards();
-  };
+  });
 
   var generateWizards = function (wizard) {
     var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -99,5 +97,10 @@
   };
 
   window.backend.load(loadSuccessHandler, loadErrorHandler);
+
+  window.setupSimilarPerson = {
+    onCoatChange: onCoatChange,
+    onEyesChange: onEyesChange,
+  };
 
 })();
