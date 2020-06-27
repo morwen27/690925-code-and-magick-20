@@ -9,9 +9,13 @@
   var wizardEyes = document.querySelector('.setup-wizard .wizard-eyes');
   var wizardFireball = document.querySelector('.setup-fireball-wrap');
 
-  var wizard = {
-    onEyesChange: function (color) {},
-    onCoatChange: function (color) {},
+  var wizardsColors = {
+    onEyesChange: function (color) {
+      return color;
+    },
+    onCoatChange: function (color) {
+      return color;
+    },
   };
 
   var getRandomArrElement = function (arr) {
@@ -27,7 +31,7 @@
     wizardCoat.style.fill = newCoatColor;
     coatColorInput.value = newCoatColor;
 
-    wizard.onCoatChange(newCoatColor);
+    wizardsColors.onCoatChange(newCoatColor);
   };
 
   var setEyesColor = function () {
@@ -37,7 +41,7 @@
     wizardEyes.style.fill = newEyesColor;
     eyesColorInput.value = newEyesColor;
 
-    wizard.onEyesChange(newEyesColor);
+    wizardsColors.onEyesChange(newEyesColor);
   };
 
   var setFireballColor = function () {
@@ -52,8 +56,7 @@
     setCoatColor: setCoatColor,
     setEyesColor: setEyesColor,
     setFireballColor: setFireballColor,
-    getRandomArrElement: getRandomArrElement,
-    wizard: wizard,
+    wizardsColors: wizardsColors,
   };
 
 })();

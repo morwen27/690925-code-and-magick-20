@@ -20,7 +20,6 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < QUANTITY_WIZARDS; i++) {
-      data[i] = window.wizard.getRandomArrElement(data);
       fragment.appendChild(generateWizards(data[i]));
     }
     similarListElement.appendChild(fragment);
@@ -40,7 +39,7 @@
     return rank;
   };
 
-  var nameComparator = function (left, right) {
+  var namesComparator = function (left, right) {
     if (left > right) {
       return 1;
     } else if (left < right) {
@@ -51,28 +50,24 @@
   };
 
   var updateWizards = function () {
-    var sortedWizard = wizards
-      .slice()
-      .sort(function (left, right) {
-        var rankDiff = getRank(right) - getRank(left);
-        if (rankDiff === 0) {
-          rankDiff = nameComparator(left.name, right.name);
-        }
-        return rankDiff;
-      });
-
-    render(sortedWizard);
+    render(wizards.sort(function (left, right) {
+      var rankDiff = getRank(right) - getRank(left);
+      if (rankDiff === 0) {
+        rankDiff = namesComparator(left.name, right.name);
+      }
+      return rankDiff;
+    }));
   };
 
-  window.wizard.wizard.onEyesChange = function (color) {
+  window.wizard.wizardsColors.onEyesChange = function (color) {
     eyesColor = color;
-    // window.debounce.debounce(updateWizards);
+    window.debounce.debounceEffect(updateWizards);
     updateWizards();
   };
 
-  window.wizard.wizard.onCoatChange = function (color) {
+  window.wizard.wizardsColors.onCoatChange = function (color) {
     coatColor = color;
-    // window.debounce.debounce(updateWizards);
+    window.debounce.debounceEffect(updateWizards);
     updateWizards();
   };
 
